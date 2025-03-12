@@ -12,7 +12,7 @@ char *create_ans(s_list **list){
 		i = 0;
 		while(node->str[i]){
 			if(node->str[i]=='\n'){
-				ans[j] = '\0';
+				ans[j]= '\0';
 				return ans;
 			} else {
 				ans[j] = node->str[i];
@@ -91,22 +91,25 @@ static void polish_list(s_list **list){
 	
 	head->str = ft_strdup(reminder);
 	head->next = NULL;
+	
 	*list = head;
-	free(reminder);
+
 	free_list(*list);
+	free(reminder);
 }
 
 void print_list(s_list *list){
 	s_list *node = list;
 	size_t i = 1;
 	while(node){
-		printf("%zu -> %s\n" , i , node->str);
+		printf("%s\n" , node->str);
 		node = node->next;
 		i++;
 	}
 }
 
 char *get_next_line(int fd){
+	printf("HERE\n");
 	static s_list *list = NULL;
 
 	if(fd<0 || read(fd , NULL , 0)<0){
@@ -120,5 +123,6 @@ char *get_next_line(int fd){
 	char *ans ;
 	ans = create_ans(&list);
 	polish_list(&list);
+	print_list(list);
 	return ans;
 }

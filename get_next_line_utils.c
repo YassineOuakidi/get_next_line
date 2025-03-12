@@ -15,7 +15,6 @@ int found_new_line(s_list *list){
 	return 0;
 }
 
-
 char *add_to_buffer(s_list *list){
 	if(!list->str) return NULL;
 	char *ans = malloc(BUFFER_SIZE + 1);
