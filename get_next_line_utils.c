@@ -1,4 +1,5 @@
 #include "get_next_line.h"
+#include <stdio.h>
 
 int found_new_line(s_list *list){
 	size_t i = 0;
@@ -28,23 +29,30 @@ char *add_to_buffer(s_list *list){
 	return ans;
 }
 
-size_t get_len(s_list **list){
-	if(!list) return 0;
-	s_list *node = *list;
-	size_t ans = 0;
-	while(node->next){
-		ans+=ft_strlen(node->str);
-		node = node -> next;
-	}
-	size_t i = 0;
-	while(node->str[i]!='\n'){
-		ans++;
-		i++;
-	}
-	return ans;
+size_t get_len(s_list **list) {
+    if (!list || !*list) return 0; 
+    s_list *node = *list;
+    size_t ans = 0;
+
+    while (node) {
+        if (node->str) {
+            size_t i = 0;
+            while (node->str[i] && node->str[i] != '\n') {
+                ans++;
+                i++;
+            }
+            if (node->str[i] == '\n') {
+                break;
+            }
+        }
+        node = node->next;
+    }
+    return ans;
 }
 
+
 int get_endl_pos(char *str){
+	if(!str) return 0;
 	size_t i = 0;
 	while(str[i]){
 		if(str[i]=='\n') return i;
@@ -54,6 +62,7 @@ int get_endl_pos(char *str){
 }
 
 char *ft_strdup(char *buff){
+	if(!buff)return NULL;
 	size_t len ;
 	size_t i;
 	len = (size_t)ft_strlen(buff);
@@ -66,12 +75,12 @@ char *ft_strdup(char *buff){
 		ans[i] = buff[i];	
 		i++;
 	}
-	//buff[i] = '\0';
+	ans[i] = '\0';
 	return ans;
 }
 
 size_t ft_strlen(char *buff){
-	
+	if(!buff) return 0;
 	size_t i;
 
 	i = 0;
